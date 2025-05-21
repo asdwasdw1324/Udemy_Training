@@ -2,7 +2,6 @@
 
 
 #include "BaseHeroCharacter.h"
-
 #include "BaseGameTags.h"
 #include "BaseHeroEnhancedInputComponent.h"
 #include "DebugHelper.h"
@@ -21,7 +20,7 @@ ABaseHeroCharacter::ABaseHeroCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
-
+	
 	// Configure character movement
 	HeroMovementComponent = GetCharacterMovement();
 	HeroMovementComponent->bOrientRotationToMovement = true;
@@ -33,7 +32,7 @@ ABaseHeroCharacter::ABaseHeroCharacter()
 	// Create a camera boom...
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	SpringArm->SetupAttachment(GetRootComponent());
-	SpringArm->TargetOffset = FVector(0.0f, 0.0f, 0.0f);
+	SpringArm->TargetOffset = FVector(5.0f, 5.0f, 0.0f);
 	SpringArm->TargetArmLength = 300.0f;
 	SpringArm->SocketOffset = FVector(0.0f, 55.0f, 0.0f);
 	SpringArm->bUsePawnControlRotation = true;
@@ -42,10 +41,13 @@ ABaseHeroCharacter::ABaseHeroCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	FollowCamera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
+	
 }
 
 void ABaseHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	
 	checkf(InputConfigDataAsset, TEXT("InputConfigDataAsset is nullptr"));
 
 	ULocalPlayer* LocalPlayer = GetController<APlayerController>()->GetLocalPlayer();
@@ -54,9 +56,14 @@ void ABaseHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 		Subsystem->AddMappingContext(InputConfigDataAsset->DefaultWarriorMappingContext, 0);
 	}
 
-	UBaseHeroEnhancedInputComponent* HeroEnhancedInputComponent= CastChecked<UBaseHeroEnhancedInputComponent>(PlayerInputComponent);
-	HeroEnhancedInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ABaseHeroCharacter::Input_Move);
-	HeroEnhancedInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ABaseHeroCharacter::Input_Look);
+
+	UBaseHeroEnhancedInputComponent* BaseHeroEnhancedInputComponent = CastChecked<UBaseHeroEnhancedInputComponent>(PlayerInputComponent);
+	
+	BaseHeroEnhancedInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ABaseHeroCharacter::Input_Move);
+	BaseHeroEnhancedInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ABaseHeroCharacter::Input_Look);
+	BaseHeroEnhancedInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Jump, ETriggerEvent::Started, this, &ACharacter::Jump);
+	BaseHeroEnhancedInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Jump, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
+
 }
 
 void ABaseHeroCharacter::BeginPlay()
