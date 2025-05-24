@@ -11,6 +11,6 @@ namespace WarriorGameplayTags
 	UDEMY_TRAINING_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Look);
 	UDEMY_TRAINING_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Jump);
 
-	/** Ability Tags**/
-	
+	/** Player Tags**/
+	UDEMY_TRAINING_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Weapon_Axe);
 }

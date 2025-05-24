@@ -2,16 +2,40 @@
 
 
 #include "BaseCharacter.h"
+#include "BaseAbilitySystemComponent.h"
+#include "BaseAttributeSet.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-	PrimaryActorTick.bStartWithTickEnabled = true;
+	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bStartWithTickEnabled = false;
 
 	GetMesh()->bReceivesDecals = false;
 
+	WarriorAbilitySystemComponent = CreateDefaultSubobject<UBaseAbilitySystemComponent>(TEXT("WarriorAbilitySystemComponent"));
+
+	WarriorAttributeSet = CreateDefaultSubobject<UBaseAttributeSet>(TEXT("WarriorAttributeSet"));
+	
+}
+
+UAbilitySystemComponent* ABaseCharacter::GetAbilitySystemComponent() const
+{
+	return GetWarriorAbilitySystemComponent();
+}
+
+void ABaseCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (WarriorAbilitySystemComponent)
+	{
+		WarriorAbilitySystemComponent->InitAbilityActorInfo(this, this);
+		
+		ensureMsgf(!CharacterStartUpData.IsNull(), TEXT("CharacterStartUpData is not assigned to %s!"), *GetName());
+		
+	}
 }
 
 

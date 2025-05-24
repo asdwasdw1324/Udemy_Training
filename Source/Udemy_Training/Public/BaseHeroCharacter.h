@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "InputActionValue.h"
-#include "Udemy_Training\BaseCharacter.h"
+#include "Udemy_Training/BaseCharacter.h"
 #include "BaseHeroCharacter.generated.h"
 
 class UCameraComponent;
@@ -12,6 +12,9 @@ class USpringArmComponent;
 class UInputComponent;
 class UCharacterMovementComponent;
 class UDataAsset_InputConfig;
+class UDataAsset_StartUpDataBase;
+struct FInputActionValue;
+class UHeroCombatComponent;
 
 
 /**
@@ -25,6 +28,11 @@ class UDEMY_TRAINING_API ABaseHeroCharacter : public ABaseCharacter
 public:
 	ABaseHeroCharacter();
 
+protected:
+
+	//~ Begin APawn Interface.
+	virtual void PossessedBy(AController* NewController) override;
+	//~ End APawn Interface.
 	
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;;
 	
@@ -40,6 +48,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UCharacterMovementComponent> HeroMovementComponent;
+
+	UPROPERTY(VisibleAnywhere, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UHeroCombatComponent> HeroCombatComponent;
 	
 #pragma endregion
 
@@ -52,5 +63,8 @@ private:
 	void Input_Look(const FInputActionValue& Value);
 	
 #pragma endregion
+
+public:
+	FORCEINLINE UHeroCombatComponent* GetHeroCombatComponent() const { return HeroCombatComponent; }
 	
 };

@@ -2,8 +2,11 @@
 
 
 #include "BaseHeroCharacter.h"
+#include "BaseAttributeSet.h"
+#include "BaseAbilitySystemComponent.h"
 #include "BaseGameTags.h"
 #include "BaseHeroEnhancedInputComponent.h"
+#include "DataAsset_StartUpDataBase.h"
 #include "DebugHelper.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -11,6 +14,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "DataAsset/DataAsset_InputConfig.h"
+#include "Combat/HeroCombatComponent.h"
 
 
 ABaseHeroCharacter::ABaseHeroCharacter()
@@ -41,7 +45,32 @@ ABaseHeroCharacter::ABaseHeroCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	FollowCamera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
+
+	// Create Hero Combat Component
+	HeroCombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("HeroCombatComponent"));
 	
+}
+
+void ABaseHeroCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (WarriorAbilitySystemComponent && WarriorAttributeSet)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Orange, FString::Printf(TEXT("WarriorAbilitySystemComponent is valid! OwnerActor: %s, AvatarActor: %s"), *GetNameSafe(WarriorAbilitySystemComponent->GetOwnerActor()), *GetNameSafe(WarriorAbilitySystemComponent->GetAvatarActor())));
+		UE_LOG(LogTemp, Warning, TEXT("WarriorAbilitySystemComponent is valid! OwnerActor: %s, AvatarActor: %s"), *GetNameSafe(WarriorAbilitySystemComponent->GetOwnerActor()), *GetNameSafe(WarriorAbilitySystemComponent->GetAvatarActor()));
+		GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Orange, FString::Printf(TEXT("WarriorAttributeSet is valid! OwnerActor: %s, AvatarActor: %s"), *GetNameSafe(WarriorAbilitySystemComponent->GetOwnerActor()), *GetNameSafe(WarriorAbilitySystemComponent->GetAvatarActor())));
+		UE_LOG(LogTemp, Warning, TEXT("WarriorAttributeSet is valid! OwnerActor: %s, AvatarActor: %s"), *GetNameSafe(WarriorAbilitySystemComponent->GetOwnerActor()), *GetNameSafe(WarriorAbilitySystemComponent->GetAvatarActor()));
+		Debug::Print(FString::Printf(TEXT("WarriorAbilitySystemComponent and warriorAttributeSet are valid!")));
+	}
+
+	if (! CharacterStartUpData.IsNull())
+	{
+		if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
+		{
+			LoadedData->GiveToAbilitySystemComponent(WarriorAbilitySystemComponent);
+		}
+	}
 }
 
 void ABaseHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
