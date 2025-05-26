@@ -40,8 +40,10 @@ protected:
 	TSoftObjectPtr<UDataAsset_StartUpDataBase> CharacterStartUpData;
 
 public:
+	// return the attribute set of this character
 	FORCEINLINE UBaseAttributeSet* GetWarriorAttributeSet() const { return WarriorAttributeSet; }
 
+	//return the ability system component of this character
 	FORCEINLINE UBaseAbilitySystemComponent* GetWarriorAbilitySystemComponent() const { return WarriorAbilitySystemComponent; }
 	
 };

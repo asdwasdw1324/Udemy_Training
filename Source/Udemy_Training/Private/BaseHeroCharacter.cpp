@@ -2,12 +2,11 @@
 
 
 #include "BaseHeroCharacter.h"
-#include "BaseAttributeSet.h"
+
 #include "BaseAbilitySystemComponent.h"
 #include "BaseGameTags.h"
 #include "BaseHeroEnhancedInputComponent.h"
 #include "DataAsset_StartUpDataBase.h"
-#include "DebugHelper.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -15,6 +14,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "DataAsset/DataAsset_InputConfig.h"
 #include "Combat/HeroCombatComponent.h"
+#include "BaseAbilitySystemComponent.h"
 
 
 ABaseHeroCharacter::ABaseHeroCharacter()
@@ -55,15 +55,18 @@ void ABaseHeroCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	if (WarriorAbilitySystemComponent && WarriorAttributeSet)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Orange, FString::Printf(TEXT("WarriorAbilitySystemComponent is valid! OwnerActor: %s, AvatarActor: %s"), *GetNameSafe(WarriorAbilitySystemComponent->GetOwnerActor()), *GetNameSafe(WarriorAbilitySystemComponent->GetAvatarActor())));
-		UE_LOG(LogTemp, Warning, TEXT("WarriorAbilitySystemComponent is valid! OwnerActor: %s, AvatarActor: %s"), *GetNameSafe(WarriorAbilitySystemComponent->GetOwnerActor()), *GetNameSafe(WarriorAbilitySystemComponent->GetAvatarActor()));
-		GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Orange, FString::Printf(TEXT("WarriorAttributeSet is valid! OwnerActor: %s, AvatarActor: %s"), *GetNameSafe(WarriorAbilitySystemComponent->GetOwnerActor()), *GetNameSafe(WarriorAbilitySystemComponent->GetAvatarActor())));
-		UE_LOG(LogTemp, Warning, TEXT("WarriorAttributeSet is valid! OwnerActor: %s, AvatarActor: %s"), *GetNameSafe(WarriorAbilitySystemComponent->GetOwnerActor()), *GetNameSafe(WarriorAbilitySystemComponent->GetAvatarActor()));
-		Debug::Print(FString::Printf(TEXT("WarriorAbilitySystemComponent and warriorAttributeSet are valid!")));
-	}
-
+#pragma region test
+	// if (WarriorAbilitySystemComponent && WarriorAttributeSet)
+	// {
+	// 	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Orange, FString::Printf(TEXT("WarriorAbilitySystemComponent is valid! OwnerActor: %s, AvatarActor: %s"), *GetNameSafe(WarriorAbilitySystemComponent->GetOwnerActor()), *GetNameSafe(WarriorAbilitySystemComponent->GetAvatarActor())));
+	// 	UE_LOG(LogTemp, Warning, TEXT("WarriorAbilitySystemComponent is valid! OwnerActor: %s, AvatarActor: %s"), *GetNameSafe(WarriorAbilitySystemComponent->GetOwnerActor()), *GetNameSafe(WarriorAbilitySystemComponent->GetAvatarActor()));
+	// 	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Orange, FString::Printf(TEXT("WarriorAttributeSet is valid! OwnerActor: %s, AvatarActor: %s"), *GetNameSafe(WarriorAbilitySystemComponent->GetOwnerActor()), *GetNameSafe(WarriorAbilitySystemComponent->GetAvatarActor())));
+	// 	UE_LOG(LogTemp, Warning, TEXT("WarriorAttributeSet is valid! OwnerActor: %s, AvatarActor: %s"), *GetNameSafe(WarriorAbilitySystemComponent->GetOwnerActor()), *GetNameSafe(WarriorAbilitySystemComponent->GetAvatarActor()));
+	// 	Debug::Print(FString::Printf(TEXT("WarriorAbilitySystemComponent and warriorAttributeSet are valid!")));
+	// }
+#pragma endregion
+	
+	// Give start up data to ability system component, then give startup ability to the warrior ability system component
 	if (! CharacterStartUpData.IsNull())
 	{
 		if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
@@ -93,13 +96,14 @@ void ABaseHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	BaseHeroEnhancedInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Jump, ETriggerEvent::Started, this, &ACharacter::Jump);
 	BaseHeroEnhancedInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Jump, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
+	BaseHeroEnhancedInputComponent->BindAbilityInputAction(InputConfigDataAsset, this, &ThisClass::Input_AbilityInputPressed, &ABaseHeroCharacter::Input_AbilityInputReleased);
+
 }
 
 void ABaseHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	Debug::Print(TEXT("GameStart!"));
+	
 }
 
 void ABaseHeroCharacter::Input_Move(const FInputActionValue& Value)
@@ -136,4 +140,14 @@ void ABaseHeroCharacter::Input_Look(const FInputActionValue& Value)
 	{
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void ABaseHeroCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
+{
+	WarriorAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
+}
+
+void ABaseHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
+{
+	WarriorAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
 }

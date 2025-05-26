@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "InputActionValue.h"
 #include "Udemy_Training/BaseCharacter.h"
+#include "GameplayTagContainer.h"
 #include "BaseHeroCharacter.generated.h"
 
 class UCameraComponent;
@@ -51,7 +52,6 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UHeroCombatComponent> HeroCombatComponent;
-	
 #pragma endregion
 
 	UPROPERTY(EditDefaultsOnly, Category = "CharacterData", meta = (AllowPrivateAccess = "true"))
@@ -59,8 +59,10 @@ private:
 
 #pragma region Input
 	void Input_Move(const FInputActionValue& Value);
-
 	void Input_Look(const FInputActionValue& Value);
+
+	void Input_AbilityInputPressed(FGameplayTag InInputTag);
+	void Input_AbilityInputReleased(FGameplayTag InInputTag);
 	
 #pragma endregion
 

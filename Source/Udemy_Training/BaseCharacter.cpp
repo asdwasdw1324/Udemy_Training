@@ -29,6 +29,7 @@ void ABaseCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
+	// Initialize the AbilitySystemComponent with the owner and avatar
 	if (WarriorAbilitySystemComponent)
 	{
 		WarriorAbilitySystemComponent->InitAbilityActorInfo(this, this);

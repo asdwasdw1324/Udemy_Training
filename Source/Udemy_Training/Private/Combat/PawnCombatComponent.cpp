@@ -7,12 +7,15 @@
 
 void UPawnCombatComponent::RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegister, AWarriorBaseWeapon* InWeaponToRegister, bool bRegisterAsEquippedWeapon)
 {
-	checkf(!CharacterCarriedWeaponMap.Contains(InWeaponTagToRegister), TEXT("Weapon with the same tag already registered!"));
-	checkf(InWeaponToRegister, TEXT("Weapon to register is nullptr!"));
+	checkf(!CharacterCarriedWeaponMap.Contains(InWeaponTagToRegister), TEXT("Weapon with the same tag: %s already registered!"), *InWeaponTagToRegister.ToString());
+	checkf(InWeaponToRegister, TEXT("WeaponTag: %s to register is nullptr!"), *InWeaponTagToRegister.ToString());
 
+	CharacterCarriedWeaponMap.Emplace(InWeaponTagToRegister, InWeaponToRegister);
+	
 	if (bRegisterAsEquippedWeapon)
 	{
 		CurrentEquippedWeaponTag = InWeaponTagToRegister;
+		Debug::Print(FString::Printf(TEXT("Weapon with the tag: %s has been registered as equipped weapon!"), *InWeaponTagToRegister.ToString()));
 	}
 
 	const FString WeaponString = FString::Printf(TEXT("A weapon named: %s has been registered using the tag %s"),*InWeaponToRegister->GetName(),*InWeaponTagToRegister.ToString());
@@ -23,9 +26,9 @@ AWarriorBaseWeapon* UPawnCombatComponent::GetCharacterCarriedWeaponByTag(FGamepl
 {
 	if (CharacterCarriedWeaponMap.Contains(InWeaponTagToGet))
 	{
-		if (AWarriorBaseWeapon* const* FoundWeapon = CharacterCarriedWeaponMap.Find(InWeaponTagToGet))
+		if (auto FoundWeapon = CharacterCarriedWeaponMap.Find(InWeaponTagToGet))
 		{
-			return * FoundWeapon;
+			return *FoundWeapon;
 		}
 	}
 	return nullptr;

@@ -27,7 +27,7 @@ public:
 
 	bool IsValid() const
 	{
-		return InputTag.IsValid() && InputAction != nullptr;
+		return InputTag.IsValid() && InputAction;
 	}
 	
 };
@@ -49,6 +49,4 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (TitleProperty = "InputAction"))
 	TArray<FWarriorInputConfig> AbilityInputActions;
-
-	UInputAction* FindAbilityInputActionByTag(const FGameplayTag& InputTag, bool bLogNotFound = true) const;
 };

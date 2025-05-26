@@ -2,8 +2,9 @@
 
 
 #include "BaseGameplayAbility.h"
-
 #include "AbilitySystemComponent.h"
+#include "BaseAbilitySystemComponent.h"
+#include "Combat/PawnCombatComponent.h"
 
 void UBaseGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
@@ -30,4 +31,15 @@ void UBaseGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle, c
 		}
 	}
 	
+}
+
+UPawnCombatComponent* UBaseGameplayAbility::GetPawnCombatComponentFromActorInfo() const
+{
+	return GetAvatarActorFromActorInfo()->FindComponentByClass<UPawnCombatComponent>();
+	
+}
+
+UBaseAbilitySystemComponent* UBaseGameplayAbility::GetBaseAbilitySystemComponentFromActorInfo() const
+{
+	return Cast<UBaseAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent);
 }
