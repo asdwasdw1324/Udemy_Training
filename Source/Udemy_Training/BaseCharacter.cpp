@@ -14,14 +14,15 @@ ABaseCharacter::ABaseCharacter()
 
 	GetMesh()->bReceivesDecals = false;
 
-	WarriorAbilitySystemComponent = CreateDefaultSubobject<UBaseAbilitySystemComponent>(TEXT("WarriorAbilitySystemComponent"));
+	CharacterAbilitySystemComponent = CreateDefaultSubobject<UBaseAbilitySystemComponent>(TEXT("CharacterAbilitySystemComponent"));
 
-	WarriorAttributeSet = CreateDefaultSubobject<UBaseAttributeSet>(TEXT("WarriorAttributeSet"));
+	CharacterAttributeSet = CreateDefaultSubobject<UBaseAttributeSet>(TEXT("CharacterAttributeSet"));
 	
 }
 
 UAbilitySystemComponent* ABaseCharacter::GetAbilitySystemComponent() const
 {
+	// Call the ForceInLined Getter function to get the AbilitySystemComponent
 	return GetWarriorAbilitySystemComponent();
 }
 
@@ -30,9 +31,9 @@ void ABaseCharacter::PossessedBy(AController* NewController)
 	Super::PossessedBy(NewController);
 
 	// Initialize the AbilitySystemComponent with the owner and avatar
-	if (WarriorAbilitySystemComponent)
+	if (CharacterAbilitySystemComponent)
 	{
-		WarriorAbilitySystemComponent->InitAbilityActorInfo(this, this);
+		CharacterAbilitySystemComponent->InitAbilityActorInfo(this, this);
 		
 		ensureMsgf(!CharacterStartUpData.IsNull(), TEXT("CharacterStartUpData is not assigned to %s!"), *GetName());
 		

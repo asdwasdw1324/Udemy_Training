@@ -7,6 +7,10 @@
 #include "GameFramework/Character.h"
 #include "BaseCharacter.generated.h"
 
+//BaseCharacter class to provide base functionality for all characters in the game.
+//It implements the IAbilitySystemInterface interface to provide access to the ability system component.
+//It also provides access to the attribute set and ability system component of the character.
+
 class UBaseAttributeSet;
 class UBaseAbilitySystemComponent;
 class UDataAsset_StartUpDataBase;
@@ -31,19 +35,19 @@ protected:
 	//~ End APawn Interface.
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abiliytysystem")
-	UBaseAttributeSet* WarriorAttributeSet;
+	TObjectPtr<UBaseAttributeSet> CharacterAttributeSet;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abiliytysystem")
-	UBaseAbilitySystemComponent* WarriorAbilitySystemComponent;
+	TObjectPtr<UBaseAbilitySystemComponent> CharacterAbilitySystemComponent;
 
 	UPROPERTY(EditDefaultsOnly, Category = "CharacterData")
 	TSoftObjectPtr<UDataAsset_StartUpDataBase> CharacterStartUpData;
 
 public:
 	// return the attribute set of this character
-	FORCEINLINE UBaseAttributeSet* GetWarriorAttributeSet() const { return WarriorAttributeSet; }
+	FORCEINLINE UBaseAttributeSet* GetWarriorAttributeSet() const { return CharacterAttributeSet; }
 
 	//return the ability system component of this character
-	FORCEINLINE UBaseAbilitySystemComponent* GetWarriorAbilitySystemComponent() const { return WarriorAbilitySystemComponent; }
+	FORCEINLINE UBaseAbilitySystemComponent* GetWarriorAbilitySystemComponent() const { return CharacterAbilitySystemComponent; }
 	
 };

@@ -17,6 +17,8 @@ class UDataAsset_StartUpDataBase;
 struct FInputActionValue;
 class UHeroCombatComponent;
 
+//BaseHeroCharacter class to provide based hero functionality for all characters in the game.
+//Include Camera, Movement and Combat components, provide input data asset for input configuration.
 
 /**
  * 

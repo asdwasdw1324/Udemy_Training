@@ -9,6 +9,12 @@
 class UBaseGameplayAbility;
 class UBaseAbilitySystemComponent;
 
+//Set up the base class for all data assets that will be used to give abilities to the ability system component.
+//This class is used to give abilities to the ability system component when the character is possessed.
+//Encapsulate the logic of giving abilities to the ability system component in a single class.
+//The final called function is GiveAbility function in the UAbilitySystemComponent class.
+//GiveAbility is not mean activate the ability, it only means give the ability to the ability system component.
+
 /**
  * 
  */

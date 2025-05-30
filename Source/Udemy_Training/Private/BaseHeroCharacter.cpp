@@ -71,7 +71,7 @@ void ABaseHeroCharacter::PossessedBy(AController* NewController)
 	{
 		if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
 		{
-			LoadedData->GiveToAbilitySystemComponent(WarriorAbilitySystemComponent);
+			LoadedData->GiveToAbilitySystemComponent(CharacterAbilitySystemComponent);
 		}
 	}
 }
@@ -82,13 +82,14 @@ void ABaseHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	
 	checkf(InputConfigDataAsset, TEXT("InputConfigDataAsset is nullptr"));
 
+	//Binding mapping context to local player
 	ULocalPlayer* LocalPlayer = GetController<APlayerController>()->GetLocalPlayer();
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
 	{
 		Subsystem->AddMappingContext(InputConfigDataAsset->DefaultWarriorMappingContext, 0);
 	}
 
-
+	// Binding input actions to customized base hero input component
 	UBaseHeroEnhancedInputComponent* BaseHeroEnhancedInputComponent = CastChecked<UBaseHeroEnhancedInputComponent>(PlayerInputComponent);
 	
 	BaseHeroEnhancedInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ABaseHeroCharacter::Input_Move);
@@ -144,10 +145,10 @@ void ABaseHeroCharacter::Input_Look(const FInputActionValue& Value)
 
 void ABaseHeroCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
 {
-	WarriorAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
+	CharacterAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
 }
 
 void ABaseHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
 {
-	WarriorAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
+	CharacterAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
 }
