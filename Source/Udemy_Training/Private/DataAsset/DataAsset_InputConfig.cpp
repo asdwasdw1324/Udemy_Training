@@ -7,11 +7,11 @@
 UInputAction* UDataAsset_InputConfig::FindNativeInputActionByTag(const FGameplayTag& InputTag, bool bLogNotFound) const
 {
 
-	for (const auto& Action : NativeInputActions)
+	for (const auto& InputAction : NativeInputActions)
 	{
-		if (Action.IsValid() && Action.InputTag == InputTag)
+		if (InputAction.IsValid() && InputAction.InputTag == InputTag)
 		{
-			return Action.InputAction;
+			return InputAction.InputAction;
 		}
 	}
 	

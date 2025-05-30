@@ -26,6 +26,8 @@ class UDEMY_TRAINING_API UBaseGameplayAbility : public UGameplayAbility
 
 protected:
 
+	//Override 2 functions to trigger when give ability and end ability.
+	//Active and clear specific ability.
 	//~ Begin UGameplayAbility Interface.
 	virtual void OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
 
@@ -36,9 +38,11 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "WarriorAbility")
 	EWarriorAbilityActivationPolicy AbilityActivationPolicy = EWarriorAbilityActivationPolicy::OnTriggered;
 
+	//Get PawnCombatComponent class in the base game ability class. 
 	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
 	UPawnCombatComponent* GetPawnCombatComponentFromActorInfo() const;
 
+	//Get BaseAbilitySystemComponent class in the base game ability class.
 	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
 	UBaseAbilitySystemComponent* GetBaseAbilitySystemComponentFromActorInfo() const;
 };

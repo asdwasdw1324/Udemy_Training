@@ -47,6 +47,8 @@ public:
 	UInputAction* FindNativeInputActionByTag(const FGameplayTag& InputTag, bool bLogNotFound = true) const;
 
 
+
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (TitleProperty = "InputAction"))
 	TArray<FWarriorInputConfig> AbilityInputActions;
 };

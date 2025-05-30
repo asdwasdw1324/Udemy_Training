@@ -15,7 +15,7 @@ void UDataAsset_StartUpDataHero::GiveToAbilitySystemComponent(UBaseAbilitySystem
 {
 	Super::GiveToAbilitySystemComponent(InASCToGive, ApplyLevel);
 
-	for (auto& AbilitySet : HeroStartUpAbilitySets)
+	for (const auto& AbilitySet : HeroStartUpAbilitySets)
 	{
 		if (!AbilitySet.IsValid()) continue;
 

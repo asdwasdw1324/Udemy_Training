@@ -7,6 +7,9 @@
 #include "DataAsset/DataAsset_InputConfig.h"
 #include "BaseHeroEnhancedInputComponent.generated.h"
 
+//Create new template function to bind native input action and ability input action in the customized enhanced input component.
+//Encapsulate the binding logic in the customized enhanced input component.
+
 /**
  * 
  */
