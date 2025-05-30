@@ -31,6 +31,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "AnimData|LocomotionData")
 	float EnterRelaxStateThreshold = 5.0f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AnimData|LocomotionData")
+	bool bArmedAxeSwitch = false;
+
 	float IdleElapsedTime;
 	
 };

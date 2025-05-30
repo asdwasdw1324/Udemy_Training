@@ -25,6 +25,5 @@ void UDataAsset_StartUpDataHero::GiveToAbilitySystemComponent(UBaseAbilitySystem
 		AbilitySpec.GetDynamicSpecSourceTags().AddTag(AbilitySet.InputTag);
 		
 		InASCToGive->GiveAbility(AbilitySpec);
-	
 	}
 }

@@ -24,7 +24,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
 	AWarriorBaseWeapon* GetCharacterCarriedWeaponByTag(FGameplayTag InWeaponTagToGet) const;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Warrior|Combat")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Warrior|Combat")
 	FGameplayTag CurrentEquippedWeaponTag;
 
 	UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
@@ -32,7 +32,7 @@ public:
 	
 	
 private:
-	UPROPERTY(VisibleAnywhere, Category = "Warrior|Combat")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Warrior|Combat", meta = (AllowPrivateAccess = "true"))
 	TMap<FGameplayTag, AWarriorBaseWeapon*> CharacterCarriedWeaponMap;
 	
 };
