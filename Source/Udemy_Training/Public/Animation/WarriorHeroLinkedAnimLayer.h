@@ -15,6 +15,7 @@ class UDEMY_TRAINING_API UWarriorHeroLinkedAnimLayer : public UWarriorBaseAnimIn
 {
 	GENERATED_BODY()
 public:
+	//For linking anim layer to this anim instance in the blueprint
 	UFUNCTION(BlueprintPure, meta = (BlueprintThreadSafe))
 	UWarriorHeroAnimInstance* GetWarriorHeroAnimInstance() const;
 

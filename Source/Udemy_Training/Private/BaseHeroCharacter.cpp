@@ -2,7 +2,6 @@
 
 
 #include "BaseHeroCharacter.h"
-
 #include "BaseAbilitySystemComponent.h"
 #include "BaseGameTags.h"
 #include "BaseHeroEnhancedInputComponent.h"
@@ -14,7 +13,6 @@
 #include "EnhancedInputSubsystems.h"
 #include "DataAsset/DataAsset_InputConfig.h"
 #include "Combat/HeroCombatComponent.h"
-#include "BaseAbilitySystemComponent.h"
 
 
 ABaseHeroCharacter::ABaseHeroCharacter()
@@ -90,7 +88,7 @@ void ABaseHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	}
 
 	// Binding input actions to customized base hero input component
-	UBaseHeroEnhancedInputComponent* BaseHeroEnhancedInputComponent = CastChecked<UBaseHeroEnhancedInputComponent>(PlayerInputComponent);
+	UBaseHeroEnhancedInputComponent* BaseHeroEnhancedInputComponent = Cast<UBaseHeroEnhancedInputComponent>(PlayerInputComponent);
 	
 	BaseHeroEnhancedInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ABaseHeroCharacter::Input_Move);
 	BaseHeroEnhancedInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ABaseHeroCharacter::Input_Look);

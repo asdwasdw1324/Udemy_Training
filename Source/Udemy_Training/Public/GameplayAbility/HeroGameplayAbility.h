@@ -29,6 +29,9 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Hero|Ability")
 	UHeroCombatComponent* GetHeroCombatComponentFromActorInfo();
 
+	UFUNCTION(BlueprintCallable, Category = "Debug")
+	void DebugPrintInputContexts(AHeroPlayerController* PC);
+
 private:
 	//Use weak points to cache hero character, hero player controller classed in the hero game ability class.
 	TWeakObjectPtr<ABaseHeroCharacter> CachedHeroCharacter;

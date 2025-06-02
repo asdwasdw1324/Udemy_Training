@@ -6,10 +6,6 @@
 #include "BaseGameplayAbility.h"
 #include "GameplayAbility/HeroGameplayAbility.h"
 
-bool FWarriorHeroAbilitySet::IsValid() const
-{
-	return (InputTag.IsValid()) && AbilityToGrant;
-}
 
 void UDataAsset_StartUpDataHero::GiveToAbilitySystemComponent(UBaseAbilitySystemComponent* InASCToGive, int32 ApplyLevel)
 {
@@ -18,7 +14,7 @@ void UDataAsset_StartUpDataHero::GiveToAbilitySystemComponent(UBaseAbilitySystem
 	for (const auto& AbilitySet : HeroStartUpAbilitySets)
 	{
 		if (!AbilitySet.IsValid()) continue;
-
+		
 		FGameplayAbilitySpec AbilitySpec(AbilitySet.AbilityToGrant);
 		AbilitySpec.Level = ApplyLevel;
 		AbilitySpec.SourceObject = InASCToGive->GetAvatarActor();
