@@ -20,6 +20,7 @@ void UBaseAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& InIn
 
 void UBaseAbilitySystemComponent::OnAbilityInputReleased(const FGameplayTag& InInputTag)
 {
+	
 }
 
 void UBaseAbilitySystemComponent::GrantHeroWeaponAbilities(const TArray<FWarriorHeroAbilitySet>& InDefaultWeaponAbilities, int32 ApplyLevel, TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandles)

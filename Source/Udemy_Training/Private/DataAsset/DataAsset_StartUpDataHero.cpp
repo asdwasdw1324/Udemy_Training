@@ -15,7 +15,7 @@ void UDataAsset_StartUpDataHero::GiveToAbilitySystemComponent(UBaseAbilitySystem
 	{
 		if (!AbilitySet.IsValid()) continue;
 		
-		FGameplayAbilitySpec AbilitySpec(AbilitySet.AbilityToGrant);
+		FGameplayAbilitySpec AbilitySpec(AbilitySet.AbilityToGrant, ApplyLevel);
 		AbilitySpec.Level = ApplyLevel;
 		AbilitySpec.SourceObject = InASCToGive->GetAvatarActor();
 		AbilitySpec.GetDynamicSpecSourceTags().AddTag(AbilitySet.InputTag);
