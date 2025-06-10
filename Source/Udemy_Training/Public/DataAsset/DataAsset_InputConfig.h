@@ -48,7 +48,7 @@ public:
 
 
 
-	
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (TitleProperty = "InputAction"))
 	TArray<FWarriorInputConfig> AbilityInputActions;
 };
