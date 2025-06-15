@@ -8,6 +8,7 @@
 
 class UBaseGameplayAbility;
 class UBaseAbilitySystemComponent;
+class UGameplayEffect;
 
 //Set up the base class for all data assets that will be used to give abilities to the ability system component.
 //This class is used to give abilities to the ability system component when the character is possessed.
@@ -33,6 +34,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "StartUpData")
 	TArray<TSubclassOf<UBaseGameplayAbility>> ReactiveAbilities;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "StartUpData")
+	TArray<TSubclassOf<UGameplayEffect>> StartupGameplayEffects;
 
 	void GrantAbilities(const TArray<TSubclassOf<UBaseGameplayAbility>>& InAbilitiesToGive, UBaseAbilitySystemComponent* InASCToGive, int32 ApplyLevel = 1);
 };

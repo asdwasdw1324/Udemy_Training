@@ -4,23 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "DataAsset_StartUpDataBase.h"
-#include "WarriorStructTypes.h"
-#include "DataAsset_StartUpDataHero.generated.h"
+#include "DataAsset_StartUpDataEnemyBase.generated.h"
 
-class UHeroGameplayAbility;
+class UEnemyGameplayAbility;
 
 /**
  * 
  */
 UCLASS()
-class UDEMY_TRAINING_API UDataAsset_StartUpDataHero : public UDataAsset_StartUpDataBase
+class UDEMY_TRAINING_API UDataAsset_StartUpDataEnemyBase : public UDataAsset_StartUpDataBase
 {
 	GENERATED_BODY()
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "StartUpData", meta = (TitleProperty = "InputTag"))
-	TArray<FWarriorHeroAbilitySet> HeroStartUpAbilitySets;
-	
+	TArray<TSubclassOf<UEnemyGameplayAbility>> EnemyCombatAbilities;
+
 public:
 	virtual void GiveToAbilitySystemComponent(UBaseAbilitySystemComponent* InASCToGive, int32 ApplyLevel = 1) override;
 };
