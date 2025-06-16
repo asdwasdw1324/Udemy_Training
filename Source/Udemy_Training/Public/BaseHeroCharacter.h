@@ -31,6 +31,10 @@ class UDEMY_TRAINING_API ABaseHeroCharacter : public ABaseCharacter
 public:
 	ABaseHeroCharacter();
 
+	//~ Begin IPawnCombatInterface Interface.
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+	//~ End IPawnCombatInterface Interface.
+
 protected:
 
 	//~ Begin APawn Interface.

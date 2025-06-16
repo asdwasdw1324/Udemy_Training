@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
 #include "GameFramework/Character.h"
+#include "Interfaces/PawnCombatInterface.h"
 #include "BaseCharacter.generated.h"
 
 //BaseCharacter class to provide base functionality for all characters in the game.
@@ -16,7 +17,7 @@ class UBaseAbilitySystemComponent;
 class UDataAsset_StartUpDataBase;
 
 UCLASS()
-class UDEMY_TRAINING_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface
+class UDEMY_TRAINING_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombatInterface
 {
 	GENERATED_BODY()
 
@@ -28,6 +29,10 @@ public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	//~ End IAbilitySystemInterface Interface.
 
+	//~ Begin IPawnCombatInterface Interface.
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+	//~ End IPawnCombatInterface Interface.
+	
 protected:
 
 	//~ Begin APawn Interface.

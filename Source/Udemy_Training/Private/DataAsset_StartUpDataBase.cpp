@@ -39,6 +39,5 @@ void UDataAsset_StartUpDataBase::GrantAbilities(const TArray<TSubclassOf<UBaseGa
 		AbilitySpec.Level = ApplyLevel;
 		AbilitySpec.SourceObject = InASCToGive->GetAvatarActor();
 		InASCToGive->GiveAbility(AbilitySpec);
-		
 	}
 }
