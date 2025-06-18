@@ -74,7 +74,7 @@ void ABaseHeroCharacter::PossessedBy(AController* NewController)
 	{
 		if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
 		{
-			LoadedData->GiveToAbilitySystemComponent(CharacterAbilitySystemComponent);
+			LoadedData->GiveToAbilitySystemComponent(CharacterBaseAbilitySystemComponent);
 		}
 	}
 }
@@ -148,10 +148,10 @@ void ABaseHeroCharacter::Input_Look(const FInputActionValue& Value)
 
 void ABaseHeroCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
 {
-	CharacterAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
+	CharacterBaseAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
 }
 
 void ABaseHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
 {
-	CharacterAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
+	CharacterBaseAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
 }

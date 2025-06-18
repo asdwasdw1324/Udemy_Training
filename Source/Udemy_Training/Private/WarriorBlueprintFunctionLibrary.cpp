@@ -22,7 +22,7 @@ void UWarriorBlueprintFunctionLibrary::AddGameplayTagToActorIfNone(AActor* InAct
 	}
 }
 
-void UWarriorBlueprintFunctionLibrary::RemoveGameplayFromActorIfFound(AActor* InActor, FGameplayTag TagToRemove)
+void UWarriorBlueprintFunctionLibrary::RemoveGameplayTagFromActorIfFound(AActor* InActor, FGameplayTag TagToRemove)
 {
 	UBaseAbilitySystemComponent* ASC = NativeGetWarriorASCFromActor(InActor);
 
@@ -60,5 +60,10 @@ UPawnCombatComponent* UWarriorBlueprintFunctionLibrary::BP_GetPawnCombatComponen
 {
 	UPawnCombatComponent* CombatComponent = NativeGetPawnCombatComponentFromActor(InActor);
 	OutValidType = CombatComponent ? EWarriorValidType::Valid : EWarriorValidType::Invalid;
+
+	if (OutValidType == EWarriorValidType::Invalid)
+	{
+		return nullptr;
+	}
 	return CombatComponent;
 }

@@ -51,7 +51,7 @@ void ABaseEnemyCharacter::InitialEnemyStartUpData()
 			{
 				if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.Get())
 				{
-					LoadedData->GiveToAbilitySystemComponent(CharacterAbilitySystemComponent, 1);
+					LoadedData->GiveToAbilitySystemComponent(CharacterBaseAbilitySystemComponent, 1);
 				}
 			}
 			)

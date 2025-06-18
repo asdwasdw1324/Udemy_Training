@@ -43,7 +43,7 @@ protected:
 	TObjectPtr<UBaseAttributeSet> CharacterAttributeSet;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abiliytysystem")
-	TObjectPtr<UBaseAbilitySystemComponent> CharacterAbilitySystemComponent;
+	TObjectPtr<UBaseAbilitySystemComponent> CharacterBaseAbilitySystemComponent;
 
 	UPROPERTY(EditDefaultsOnly, Category = "CharacterData")
 	TSoftObjectPtr<UDataAsset_StartUpDataBase> CharacterStartUpData;
@@ -53,6 +53,6 @@ public:
 	FORCEINLINE UBaseAttributeSet* GetWarriorAttributeSet() const { return CharacterAttributeSet; }
 
 	//return the ability system component of this character
-	FORCEINLINE UBaseAbilitySystemComponent* GetWarriorAbilitySystemComponent() const { return CharacterAbilitySystemComponent; }
+	FORCEINLINE UBaseAbilitySystemComponent* GetWarriorAbilitySystemComponent() const { return CharacterBaseAbilitySystemComponent; }
 	
 };

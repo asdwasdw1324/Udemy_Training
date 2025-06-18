@@ -14,7 +14,7 @@ ABaseCharacter::ABaseCharacter()
 
 	GetMesh()->bReceivesDecals = false;
 
-	CharacterAbilitySystemComponent = CreateDefaultSubobject<UBaseAbilitySystemComponent>(TEXT("CharacterAbilitySystemComponent"));
+	CharacterBaseAbilitySystemComponent = CreateDefaultSubobject<UBaseAbilitySystemComponent>(TEXT("CharacterAbilitySystemComponent"));
 
 	CharacterAttributeSet = CreateDefaultSubobject<UBaseAttributeSet>(TEXT("CharacterAttributeSet"));
 	
@@ -36,9 +36,9 @@ void ABaseCharacter::PossessedBy(AController* NewController)
 	Super::PossessedBy(NewController);
 
 	// Initialize the AbilitySystemComponent with the owner and avatar
-	if (CharacterAbilitySystemComponent)
+	if (CharacterBaseAbilitySystemComponent)
 	{
-		CharacterAbilitySystemComponent->InitAbilityActorInfo(this, this);
+		CharacterBaseAbilitySystemComponent->InitAbilityActorInfo(this, this);
 		
 		ensureMsgf(!CharacterStartUpData.IsNull(), TEXT("CharacterStartUpData is not assigned to %s!"), *GetName());
 		

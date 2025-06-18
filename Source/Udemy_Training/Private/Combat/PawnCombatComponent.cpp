@@ -4,6 +4,7 @@
 #include "Combat/PawnCombatComponent.h"
 #include "DebugHelper.h"
 #include "WarriorBaseWeapon.h"
+#include "Components/BoxComponent.h"
 
 void UPawnCombatComponent::RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegister, AWarriorBaseWeapon* InWeaponToRegister, bool bRegisterAsEquippedWeapon)
 {
@@ -42,4 +43,26 @@ AWarriorBaseWeapon* UPawnCombatComponent::GetCharacterCurrentEquippedWeapon() co
 		return nullptr;
 	}
 	return GetCharacterCarriedWeaponByTag(CurrentEquippedWeaponTag);
+}
+
+void UPawnCombatComponent::ToggleWeaponCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType)
+{
+	if (ToggleDamageType == EToggleDamageType::CurrentEquippedWeapon)
+	{
+		AWarriorBaseWeapon* WeaponToToggle = GetCharacterCurrentEquippedWeapon();
+
+		check(WeaponToToggle);
+
+		if (bShouldEnable)
+		{
+			WeaponToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+			Debug::Print(FString::Printf(TEXT("Weapon collision enabled for the weapon: %s"), *WeaponToToggle->GetName()), FColor::Green);
+		}
+		else
+		{
+			WeaponToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			Debug::Print(FString::Printf(TEXT("Weapon collision disabled for the weapon: %s"), *WeaponToToggle->GetName()), FColor::Red);
+		}
+	}
+	
 }

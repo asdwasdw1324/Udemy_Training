@@ -12,6 +12,14 @@
 
 class AWarriorBaseWeapon;
 
+UENUM(BlueprintType)
+enum class EToggleDamageType : uint8
+{
+	CurrentEquippedWeapon,
+	LeftHandWeapon,
+	RightHandWeapon
+};
+
 /**
  * 
  */
@@ -33,9 +41,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Warrior|Combat")
 	FGameplayTag CurrentEquippedWeaponTag;
 
-	UFUNCTION(Category = "Warrior|Combat")
+	UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
 	AWarriorBaseWeapon* GetCharacterCurrentEquippedWeapon() const;
-	
+
+	UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
+	void ToggleWeaponCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType = EToggleDamageType::CurrentEquippedWeapon);
 	
 private:
 	//CharacterCarriedWeaponMap is a map to store all registered weapons by tag

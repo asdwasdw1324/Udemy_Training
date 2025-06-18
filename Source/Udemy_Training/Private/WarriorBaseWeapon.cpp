@@ -2,7 +2,7 @@
 
 
 #include "WarriorBaseWeapon.h"
-
+#include "DebugHelper.h"
 #include "Components/BoxComponent.h"
 
 // Sets default values
@@ -18,8 +18,33 @@ AWarriorBaseWeapon::AWarriorBaseWeapon()
 	WeaponCollisionBox->SetupAttachment(GetRootComponent());
 	WeaponCollisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	WeaponCollisionBox->SetBoxExtent(FVector(20.f, 20.f, 20.f));
+	WeaponCollisionBox->OnComponentBeginOverlap.AddUniqueDynamic(this, &AWarriorBaseWeapon::OnCollisionBoxBeginOverlap);
+	WeaponCollisionBox->OnComponentEndOverlap.AddUniqueDynamic(this, &AWarriorBaseWeapon::OnCollisionBoxEndOverlap);
 	
 }
+
+void AWarriorBaseWeapon::OnCollisionBoxBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	APawn* WeaponOwningPawn = GetInstigator<APawn>();
+
+	checkf(WeaponOwningPawn, TEXT("The WeaponOwningPawn of the weapon: %s is nullptr"), *GetName());
+
+	if (APawn* HitPawn = Cast<APawn>(OtherActor))
+	{
+		if (WeaponOwningPawn != HitPawn)
+		{
+			Debug::Print(GetName() + TEXT("Begin Overlap with") + HitPawn->GetName(), FColor::Red);
+		}
+	}
+}
+
+void AWarriorBaseWeapon::OnCollisionBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	
+}
+
 
 
 
