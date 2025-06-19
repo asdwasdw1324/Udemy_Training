@@ -9,6 +9,8 @@
 class UStaticMeshComponent;
 class UBoxComponent;
 
+DECLARE_DELEGATE_OneParam(FOnTargetInteractedDelegate, AActor*)
+
 UCLASS()
 class UDEMY_TRAINING_API AWarriorBaseWeapon : public AActor
 {
@@ -18,6 +20,9 @@ public:
 	// Sets default values for this actor's properties
 	AWarriorBaseWeapon();
 
+	FOnTargetInteractedDelegate OnWeaponHitTarget;
+	FOnTargetInteractedDelegate OnWeaponPulledFromTarget;
+	
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon")
 	TObjectPtr<UStaticMeshComponent> WeaponMesh;

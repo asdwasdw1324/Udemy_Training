@@ -2,7 +2,6 @@
 
 
 #include "Combat/PawnCombatComponent.h"
-#include "DebugHelper.h"
 #include "WarriorBaseWeapon.h"
 #include "Components/BoxComponent.h"
 
@@ -12,15 +11,16 @@ void UPawnCombatComponent::RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegis
 	checkf(InWeaponToRegister, TEXT("WeaponTag: %s to register is nullptr!"), *InWeaponTagToRegister.ToString());
 
 	CharacterCarriedWeaponMap.Emplace(InWeaponTagToRegister, InWeaponToRegister);
-	
-	//if (bRegisterAsEquippedWeapon)
-	//{
-	//	CurrentEquippedWeaponTag = InWeaponTagToRegister;
-	//	Debug::Print(FString::Printf(TEXT("Weapon with the tag: %s has been registered as equipped weapon!"), *InWeaponTagToRegister.ToString()));
-	//}
 
-	//const FString WeaponString = FString::Printf(TEXT("A weapon named: %s has been registered using the tag %s"),*InWeaponToRegister->GetName(),*InWeaponTagToRegister.ToString());
-	//Debug::Print(WeaponString);
+	InWeaponToRegister->OnWeaponHitTarget.BindUObject(this, &UPawnCombatComponent::OnHitTargetActor);
+	InWeaponToRegister->OnWeaponPulledFromTarget.BindUObject(this, &UPawnCombatComponent::OnWeaponPulledFromTargetActor);
+	
+	if (bRegisterAsEquippedWeapon)
+	{
+		CurrentEquippedWeaponTag = InWeaponTagToRegister;
+		//Debug::Print(FString::Printf(TEXT("Weapon with the tag: %s has been registered as equipped weapon!"), *InWeaponTagToRegister.ToString()));
+	}
+	
 }
 
 AWarriorBaseWeapon* UPawnCombatComponent::GetCharacterCarriedWeaponByTag(FGameplayTag InWeaponTagToGet) const
@@ -56,13 +56,21 @@ void UPawnCombatComponent::ToggleWeaponCollision(bool bShouldEnable, EToggleDama
 		if (bShouldEnable)
 		{
 			WeaponToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-			Debug::Print(FString::Printf(TEXT("Weapon collision enabled for the weapon: %s"), *WeaponToToggle->GetName()), FColor::Green);
+			//Debug::Print(FString::Printf(TEXT("Weapon collision enabled for the weapon: %s"), *WeaponToToggle->GetName()), FColor::Green);
 		}
 		else
 		{
 			WeaponToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Debug::Print(FString::Printf(TEXT("Weapon collision disabled for the weapon: %s"), *WeaponToToggle->GetName()), FColor::Red);
+			//Debug::Print(FString::Printf(TEXT("Weapon collision disabled for the weapon: %s"), *WeaponToToggle->GetName()), FColor::Red);
 		}
 	}
 	
+}
+
+void UPawnCombatComponent::OnHitTargetActor(AActor* HitActor)
+{
+}
+
+void UPawnCombatComponent::OnWeaponPulledFromTargetActor(AActor* InteractedActor)
+{
 }

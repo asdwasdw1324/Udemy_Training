@@ -2,7 +2,6 @@
 
 
 #include "WarriorBaseWeapon.h"
-#include "DebugHelper.h"
 #include "Components/BoxComponent.h"
 
 // Sets default values
@@ -28,13 +27,13 @@ void AWarriorBaseWeapon::OnCollisionBoxBeginOverlap(UPrimitiveComponent* Overlap
 {
 	APawn* WeaponOwningPawn = GetInstigator<APawn>();
 
-	checkf(WeaponOwningPawn, TEXT("The WeaponOwningPawn of the weapon: %s is nullptr"), *GetName());
+	checkf(WeaponOwningPawn, TEXT("The WeaponOwningPawn for the weapon: %s is nullptr"), *GetName());
 
 	if (APawn* HitPawn = Cast<APawn>(OtherActor))
 	{
 		if (WeaponOwningPawn != HitPawn)
 		{
-			Debug::Print(GetName() + TEXT("Begin Overlap with") + HitPawn->GetName(), FColor::Red);
+			OnWeaponHitTarget.ExecuteIfBound(OtherActor);
 		}
 	}
 }
@@ -42,7 +41,17 @@ void AWarriorBaseWeapon::OnCollisionBoxBeginOverlap(UPrimitiveComponent* Overlap
 void AWarriorBaseWeapon::OnCollisionBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	
+	APawn* WeaponOwningPawn = GetInstigator<APawn>();
+
+	checkf(WeaponOwningPawn, TEXT("The WeaponOwningPawn for the weapon: %s is nullptr"), *GetName());
+
+	if (APawn* HitPawn = Cast<APawn>(OtherActor))
+	{
+		if (WeaponOwningPawn != HitPawn)
+		{
+			OnWeaponPulledFromTarget.ExecuteIfBound(OtherActor);
+		}
+	}
 }
 
 

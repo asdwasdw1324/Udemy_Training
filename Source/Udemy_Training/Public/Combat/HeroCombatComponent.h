@@ -20,4 +20,7 @@ public:
 	//If the cast is successful, return the weapon, otherwise return nullptr
 	UFUNCTION(blueprintCallable, Category="Warrior|Combat")
 	AWarriorHeroWeapon* GetHeroCarriedWeaponByTag(FGameplayTag InWeaponTag) const;
+
+	virtual void OnHitTargetActor(AActor* HitActor) override;
+	virtual void OnWeaponPulledFromTargetActor(AActor* InteractedActor) override;
 };
