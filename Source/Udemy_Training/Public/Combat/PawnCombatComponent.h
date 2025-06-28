@@ -49,6 +49,9 @@ public:
 
 	virtual void OnHitTargetActor(AActor* HitActor);
 	virtual void OnWeaponPulledFromTargetActor(AActor* InteractedActor);
+
+protected:
+	TArray<AActor*> OverlappedActors;
 	
 private:
 	//CharacterCarriedWeaponMap is a map to store all registered weapons by tag

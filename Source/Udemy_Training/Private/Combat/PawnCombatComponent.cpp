@@ -61,6 +61,8 @@ void UPawnCombatComponent::ToggleWeaponCollision(bool bShouldEnable, EToggleDama
 		else
 		{
 			WeaponToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+			OverlappedActors.Empty();
 			//Debug::Print(FString::Printf(TEXT("Weapon collision disabled for the weapon: %s"), *WeaponToToggle->GetName()), FColor::Red);
 		}
 	}
