@@ -31,4 +31,6 @@ namespace WarriorGameplayTags
 	/** Shared Tags**/
 	UDEMY_TRAINING_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_MeleeHit);
 
+	UDEMY_TRAINING_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_BaseDamage);
+
 }

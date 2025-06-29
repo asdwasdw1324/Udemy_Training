@@ -29,6 +29,9 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Hero|Ability")
 	UHeroCombatComponent* GetHeroCombatComponentFromActorInfo();
 
+	UFUNCTION(BlueprintPure, Category = "Hero|Ability")
+	FGameplayEffectSpecHandle MakeHeroDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass,float InWeaponBaseDamage,FGameplayTag InCurrentAttackTypeTag,int32 InCurrentComboCount);
+
 
 private:
 	//Use weak points to cache hero character, hero player controller classed in the hero game ability class.
