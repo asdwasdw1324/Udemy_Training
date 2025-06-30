@@ -12,6 +12,14 @@ UENUM()
 enum class EWarriorValidType : uint8
 {
 	Valid,
-	Invalid,
+	Invalid
+	
+};
+
+UENUM()
+enum class EWarriorSuccessType : uint8
+{
+	Successful,
+	Failed
 	
 };

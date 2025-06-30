@@ -3,6 +3,7 @@
 #pragma once
 
 #include "GameplayTagContainer.h"
+#include "ScalableFloat.h"
 #include "WarriorStructTypes.generated.h"
 
 class UWarriorHeroLinkedAnimLayer;
@@ -40,4 +41,7 @@ struct FWarriorHeroWeaponData
 	//The abilities that will be granted to the hero character when the weapon is equipped.
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
 	TArray<FWarriorHeroAbilitySet> DefaultWeaponAbilities;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FScalableFloat WeaponBaseDamage;
 };

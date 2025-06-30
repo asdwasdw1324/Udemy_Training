@@ -3,10 +3,7 @@
 
 #include "GameplayAbility/HeroGameplayAbility.h"
 #include "BaseHeroCharacter.h"
-#include "EnhancedInputSubsystems.h"
 #include "HeroGameBase/HeroPlayerController.h"
-#include "EnhancedPlayerInput.h"
-#include "EnhancedInputComponent.h"
 #include "BaseAbilitySystemComponent.h"
 #include "BaseGameTags.h"
 
@@ -35,7 +32,7 @@ UHeroCombatComponent* UHeroGameplayAbility::GetHeroCombatComponentFromActorInfo(
 }
 
 FGameplayEffectSpecHandle UHeroGameplayAbility::MakeHeroDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass,
-	float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InCurrentComboCount)
+	float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InUsedComboCount)
 {
 	check(EffectClass);
 
@@ -50,7 +47,7 @@ FGameplayEffectSpecHandle UHeroGameplayAbility::MakeHeroDamageEffectSpecHandle(T
 
 	if (InCurrentAttackTypeTag.IsValid())
 	{
-		EffectSpecHandle.Data->SetSetByCallerMagnitude(InCurrentAttackTypeTag,InCurrentComboCount);
+		EffectSpecHandle.Data->SetSetByCallerMagnitude(InCurrentAttackTypeTag,InUsedComboCount);
 	}
 
 	return EffectSpecHandle;

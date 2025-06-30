@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "WarriorEnumTypes.h"
 #include "Abilities/GameplayAbility.h"
 #include "BaseGameplayAbility.generated.h"
 
@@ -45,4 +46,9 @@ protected:
 	//Get BaseAbilitySystemComponent class in the base game ability class.
 	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
 	UBaseAbilitySystemComponent* GetBaseAbilitySystemComponentFromActorInfo() const;
+
+	FActiveGameplayEffectHandle NativeApplyEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle);
+
+	UFUNCTION(BlueprintCallable, Category = "Warrior|Ability", meta = (DisplayName = "Apply Gameplay Effect Spec Handle to Target Actor", ExpandEnumAsExecs = "OutSuccessType"))
+	FActiveGameplayEffectHandle BP_ApplyEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle, EWarriorSuccessType& OutSuccessType);
 };
