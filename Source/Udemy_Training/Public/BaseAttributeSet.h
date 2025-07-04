@@ -34,20 +34,24 @@ public:
 	FGameplayAttributeData MaxHealth;
 	ATTRIBUTE_ACCESSORS(UBaseAttributeSet, MaxHealth)
 
-	UPROPERTY(BlueprintReadOnly, Category = "Health")
-	FGameplayAttributeData CurrentRange;
-	ATTRIBUTE_ACCESSORS(UBaseAttributeSet, CurrentRange)
+	UPROPERTY(BlueprintReadOnly, Category = "Rage")
+	FGameplayAttributeData CurrentRage;
+	ATTRIBUTE_ACCESSORS(UBaseAttributeSet, CurrentRage)
 
-	UPROPERTY(BlueprintReadOnly, Category = "Health")
-	FGameplayAttributeData MaxRange;
-	ATTRIBUTE_ACCESSORS(UBaseAttributeSet, MaxRange)
+	UPROPERTY(BlueprintReadOnly, Category = "Rage")
+	FGameplayAttributeData MaxRage;
+	ATTRIBUTE_ACCESSORS(UBaseAttributeSet, MaxRage)
 
-	UPROPERTY(BlueprintReadOnly, Category = "Power")
+	UPROPERTY(BlueprintReadOnly, Category = "Damage")
 	FGameplayAttributeData AttackPower;
 	ATTRIBUTE_ACCESSORS(UBaseAttributeSet, AttackPower)
 
-	UPROPERTY(BlueprintReadOnly, Category = "Power")
+	UPROPERTY(BlueprintReadOnly, Category = "Damage")
 	FGameplayAttributeData DefensePower;
 	ATTRIBUTE_ACCESSORS(UBaseAttributeSet, DefensePower)
-	
+
+	UPROPERTY(BlueprintReadOnly, Category = "DamageTaken")
+	FGameplayAttributeData DamageTaken;
+	ATTRIBUTE_ACCESSORS(UBaseAttributeSet, DamageTaken)
+
 };
