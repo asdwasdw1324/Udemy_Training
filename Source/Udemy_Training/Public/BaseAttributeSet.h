@@ -26,6 +26,8 @@ class UDEMY_TRAINING_API UBaseAttributeSet : public UAttributeSet
 public:
 	UBaseAttributeSet();
 
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
+
 	UPROPERTY(BlueprintReadOnly, Category = "Health")
 	FGameplayAttributeData CurrentHealth;
 	ATTRIBUTE_ACCESSORS(UBaseAttributeSet, CurrentHealth)
