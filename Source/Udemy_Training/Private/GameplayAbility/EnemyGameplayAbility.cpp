@@ -6,7 +6,7 @@
 
 ABaseEnemyCharacter* UEnemyGameplayAbility::GetBaseEnemyCharacterFromActorInfo()
 {
-	if (CachedBaseEnemyCharacter.IsValid())
+	if (!CachedBaseEnemyCharacter.IsValid())
 	{
 		CachedBaseEnemyCharacter = Cast<ABaseEnemyCharacter>(GetAvatarActorFromActorInfo());
 	}
@@ -15,5 +15,5 @@ ABaseEnemyCharacter* UEnemyGameplayAbility::GetBaseEnemyCharacterFromActorInfo()
 
 UEnemyCombatComponent* UEnemyGameplayAbility::GetEnemyCombatComponentFromActorInfo()
 {
-	return GetBaseEnemyCharacterFromActorInfo()->GetEnemyCombatComponent();
+	return GetBaseEnemyCharacterFromActorInfo()->GetEnemyCombatComponent();	
 }

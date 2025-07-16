@@ -4,6 +4,8 @@
 #include "BaseAttributeSet.h"
 #include "GameplayEffectExtension.h"
 #include "DebugHelper.h"
+#include "WarriorBlueprintFunctionLibrary.h"
+#include "BaseGameTags.h"
 
 UBaseAttributeSet::UBaseAttributeSet()
 {
@@ -42,6 +44,10 @@ void UBaseAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMo
 		if (NewCurrentHealth == 0.f)
 		{
 			Debug::Print(TEXT("The pawn is dead!"), FColor::MakeRandomColor());
+
+			// TODO: Add logic to handle pawn death
+	        UWarriorBlueprintFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(),WarriorGameplayTags::Shared_Status_Death);
+			
 		}
 	}
 	
