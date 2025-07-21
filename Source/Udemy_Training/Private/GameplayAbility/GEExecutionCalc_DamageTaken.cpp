@@ -4,7 +4,6 @@
 #include "GameplayAbility/GEExecutionCalc_DamageTaken.h"
 #include "BaseAttributeSet.h"
 #include "BaseGameTags.h"
-#include "DebugHelper.h"
 
 struct FWarriorDamageCapture 
 {
